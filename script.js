@@ -72,23 +72,3 @@ function setKey() {
         console.log('HMAC: '+hmac+'\n'+'Enter your move:')
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
