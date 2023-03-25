@@ -12,10 +12,11 @@ Itra project N3
 
 <!-- INSTALLATION -->
 <div>
-1. Clone the repository:
-    `git clone https://github.com/PetrovaValerie/rock-paper-scissors.git`
+1. Clone the repository
+    
 2. Install dependencies:
     `npm install`
+    
 3. Start project in terminal:
    `node script.js + [your N(>= 3) of moves]`
 </div>
