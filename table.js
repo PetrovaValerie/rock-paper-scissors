@@ -1,8 +1,6 @@
 import Table from "cli-table3"
 import {draw, lose, range, range1, win} from "./script.js"
 
-const moves = process.argv.slice(2)
-
 export function getTable(...moves) {
     const table = new Table({
         head: ['Computer'.blue+' vs '.white+'Gamer >>', ...moves],
