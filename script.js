@@ -10,6 +10,7 @@ export const draw = 'Draw'.grey
 const moves = process.argv.slice(2)
 export const range = Math.round(moves.length / 2)
 export const range1 = Math.round((moves.length -1) / 2)
+const argsLen = process.argv.length
 const cmptMoves = []
 const res = []
 let userMove
@@ -22,14 +23,14 @@ class Game {
             input: process.stdin,
             output: process.stdout})}
     start() {
-        if(new Set(process.argv).size === process.argv.length && process.argv.length % 2 !== 0 && process.argv.length >= 3) {
+        if(new Set(process.argv).size === argsLen && argsLen % 2 !== 0 && argsLen >= 3) {
             this.rl.question(`Available moves:\n${moves.map((move, index) =>
             `${index + 1} - ${move}`).join('\n')}\n0 - exit\n? - help\n`, (ans) => {
             if(parseInt(ans) === 0){
                 this.rl.close()}
             if(ans === '?'){
                 getTable(...moves)
-                this.rl.close()}
+                }
             if(parseInt(ans) > 0 && parseInt(ans) <= moves.length){
                 let selectedMove = moves[parseInt(ans) - 1]
                 console.log(`You selected: ${selectedMove}` + '\n'+'Computer move: '+cmptChoice)
@@ -40,16 +41,38 @@ class Game {
                 this.rl.close()
             }else{
                 console.log("Let's try again!")
-                this.rl.close()}})
+                this.start()}
+            })
         }else{
-            console.error('Error: Invalid input! Please provide an odd number of '.green +
-                            'at least 3 non-repeating strings as command line arguments.\nEx. Scissors Lizard Spock.'.green)
+            if(moves.length === 0){
+                console.error("Error: Invalid input! You didn't enter any parameters.".green)
+            }else{
+                console.error('Error: Invalid input! Please provide an odd number of '.green+
+                                'at least 3 non-repeating strings as command line arguments.\nEx. Scissors Lizard Spock.'.green)
+            }
             this.rl.close()
         }
     }
 }
 const game = new Game()
 game.start()
+
+for(let move in moves){
+    cmptMoves.push(moves[crypto.randomInt(0, moves.length)])
+}
+
+const cmptChoice = cmptMoves[Math.floor(Math.random() * cmptMoves.length)]
+cmptMove = moves.indexOf(cmptChoice) + 1;
+
+setKey()
+function setKey() {
+    const secret = new UIDGenerator(368)
+    uid = secret.generateSync()
+    if(new Set(process.argv).size === argsLen && cmptChoice){
+        const hmac = crypto.createHmac("sha3-256", uid).update(cmptChoice).digest('hex')
+        console.log('HMAC: '+hmac+'\n'+'Enter your move:')
+    }
+}
 
 function genRes(move1, move2) {
     if(move1 === move2) res.push(draw)
@@ -63,19 +86,3 @@ function genRes(move1, move2) {
     }
 }
 
-for(let move in moves){
-    cmptMoves.push(moves[crypto.randomInt(0, moves.length)])
-}
-
-const cmptChoice = cmptMoves[Math.floor(Math.random() * cmptMoves.length)]
-cmptMove = moves.indexOf(cmptChoice) + 1;
-
-setKey()
-function setKey() {
-    const secret = new UIDGenerator(368)
-    uid = secret.generateSync()
-    if(cmptChoice){
-        const hmac = crypto.createHmac("sha3-256", uid).update(cmptChoice).digest('hex')
-        console.log('HMAC: '+hmac+'\n'+'Enter your move:')
-    }
-}
