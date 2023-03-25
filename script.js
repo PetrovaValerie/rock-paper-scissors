@@ -8,7 +8,8 @@ export const win = 'Win'.brightYellow
 export const lose = 'Lose'.black
 export const draw = 'Draw'.grey
 const moves = process.argv.slice(2)
-export const range = Math.round((moves.length -1)/ 2)
+export const range = Math.round(moves.length / 2)
+export const range1 = Math.round((moves.length -1) / 2)
 const cmptMoves = []
 const res = []
 let userMove
@@ -52,8 +53,14 @@ game.start()
 
 function genRes(move1, move2) {
     if(move1 === move2) res.push(draw)
-    if (move2 > move1) {(move2 - move1 <= range) ? res.push(lose) : res.push(win)}
-    if (move2 < move1) {(move1 - move2 <= range ) ? res.push(win) : res.push(lose)}
+    if (moves.length <= 5) {
+        if (move2 > move1) {(move2 - move1 <= range) ? res.push(lose) : res.push(win)}
+        if (move2 < move1) {(move1 - move2 <= range) ? res.push(win) : res.push(lose)}
+    }
+    if (moves.length > 5) {
+        if (move2 > move1) {(move2 - move1 <= range1) ? res.push(lose) : res.push(win)}
+        if (move2 < move1) {(move1 - move2 <= range1) ? res.push(win) : res.push(lose)}
+    }
 }
 
 for(let move in moves){
