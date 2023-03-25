@@ -9,6 +9,7 @@ Itra project N3
 <hr/>
 ⇒ The user makes his choice. The script shows hmac, who won, the move of the computer and the original key
 <hr/>
+<div>
 <!-- INSTALLATION -->
 ## Installation
 1. Clone the repository:
@@ -17,3 +18,4 @@ Itra project N3
     `npm install`
 3. Start project in terminal:
    `node script.js + [your N(>= 3) of moves]`
+</div>
