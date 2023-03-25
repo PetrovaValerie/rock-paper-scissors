@@ -12,6 +12,7 @@ Itra project N3
 
 <!-- INSTALLATION -->
 <div>
+    
 1. Clone the repository
     
 2. Install dependencies:
@@ -19,4 +20,5 @@ Itra project N3
     
 3. Start project in terminal:
    `node script.js + [your N(>= 3) of moves]`
+    
 </div>
